@@ -66,10 +66,10 @@ ai_tools_used:
 
 ai_usage_summary: |
   Briefly describe how AI tools were used. Examples:
-  - "Used Claude for code review and architectural discussion. Used Copilot for autocomplete.
-     No candidate data was fed to any LLM."
-  - "Used ChatGPT to debug Python issues and Cursor for refactoring."
-  - "No AI tools used."
+  Used Claude for architectural design, JD analysis, signal weight calibration,
+  and code review. The scoring logic, feature engineering, and Python implementation
+  are original engineering work. No candidate data was fed to any LLM.
+  The ranker makes zero API calls during execution.
 
 # ============================================================================
 # Approach summary (optional but recommended)
@@ -77,13 +77,16 @@ ai_usage_summary: |
 methodology_summary: |
   ≤200 word summary of your approach. Strongly recommended.
 
-  Example:
-  "Rule-based ranker with explicit reasoning capture. Five scoring components
-  (skills, title+career, experience years, location, education) combined with
-  a multiplicative behavioral-signal modifier. The title component is the
-  decisive signal against keyword-stuffer traps; an endorsement-and-duration
-  trust multiplier on skills catches lazy keyword stuffing. Runtime is ~10
-  seconds for 50K candidates on CPU."
+  Five-layer deterministic scoring pipeline. Layer 1 hard-disqualifies ~58K
+  candidates (wrong title, too junior, honeypot detection). Remaining candidates
+  are scored across: skill relevance (35%) using proficiency/duration/endorsement
+  weighted matching against JD requirements including implicit skills from career
+  descriptions; career trajectory (25%) penalising pure services/consulting
+  backgrounds and rewarding product company ML experience; 23 Redrob behavioral
+  signals (20%) with notice period, last active date, and recruiter response rate
+  as key drivers; location fit (12%) for Pune/Noida/Tier-1 India preference;
+  experience band (8%) targeting the 5-9 year JD range. Honeypots detected via
+  timeline inconsistency and impossible skill claims. Runtime ~13 seconds on CPU.
 
 # ============================================================================
 # Declarations
