@@ -1,0 +1,10 @@
+# Signal Ranker — Python dependencies
+# All stdlib except numpy (optional, not actually used in current version)
+# Python 3.10+ required (uses match/case syntax via type hints)
+
+# No external dependencies required for the ranker itself.
+# The ranker uses only Python standard library:
+#   json, csv, re, math, datetime, argparse, pathlib, sys, gzip
+
+# Optional: for development/debugging only
+numpy>=1.24.0
